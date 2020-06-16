@@ -8,6 +8,7 @@ import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.math.BlockPos;
+import net.minecraftforge.items.ItemHandlerHelper;
 import net.minecraftforge.fml.common.network.simpleimpl.IMessage;
 import net.minecraftforge.fml.common.network.simpleimpl.IMessageHandler;
 import net.minecraftforge.fml.common.network.simpleimpl.MessageContext;
@@ -53,8 +54,9 @@ public class MessageMineBayClosed implements IMessage, IMessageHandler<MessageMi
 
             if(!tileEntityComputer.getStackInSlot(0).isEmpty())
             {
-                player.world.spawnEntity(new EntityItem(player.world, player.posX, player.posY, player.posZ, tileEntityComputer.getStackInSlot(0)));
-                tileEntityComputer.setInventorySlotContents(0, ItemStack.EMPTY);
+                //player.world.spawnEntity(new EntityItem(player.world, player.posX, player.posY, player.posZ, tileEntityComputer.getStackInSlot(0)));
+                ItemHandlerHelper.giveItemToPlayer(((EntityPlayerMP) player), tileEntityComputer.getStackInSlot(0));
+				tileEntityComputer.setInventorySlotContents(0, ItemStack.EMPTY);
             }
             tileEntityComputer.setTrading(false);
         }
