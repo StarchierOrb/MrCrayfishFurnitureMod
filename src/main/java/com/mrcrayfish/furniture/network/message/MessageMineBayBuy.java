@@ -10,6 +10,7 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.math.BlockPos;
+import net.minecraftforge.items.ItemHandlerHelper;
 import net.minecraftforge.fml.common.network.simpleimpl.IMessage;
 import net.minecraftforge.fml.common.network.simpleimpl.IMessageHandler;
 import net.minecraftforge.fml.common.network.simpleimpl.MessageContext;
@@ -67,8 +68,9 @@ public class MessageMineBayBuy implements IMessage, IMessageHandler<MessageMineB
             if(recipe.getCurrency().getItem() == buySlot.getItem() && buySlot.getCount() >= price)
             {
                 tileEntityComputer.takeEmeraldFromSlot(price);
-                EntityItem entityItem = new EntityItem(player.world, player.posX, player.posY + 1, player.posZ, data[message.itemNum].getInput().copy());
-                player.world.spawnEntity(entityItem);
+				ItemHandlerHelper.giveItemToPlayer(((EntityPlayer) player), data[message.itemNum].getInput().copy());
+                //EntityItem entityItem = new EntityItem(player.world, player.posX, player.posY + 1, player.posZ, data[message.itemNum].getInput().copy());
+                //player.world.spawnEntity(entityItem);
                 Triggers.trigger(Triggers.MINEBAY_PURCHASE, player);
             }
         }
